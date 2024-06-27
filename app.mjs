@@ -2,10 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 // Import connectDb function
 import connectDb from './db/conn.mjs';
+import usersRoute from './routes/users.mjs'
+
+import dotenv from 'dotenv';
+dotenv.config();
+
 // Initialize Express app
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
+
 // Connect to MongoDB using Mongoose
 const MONGODB_URI = "mongodb+srv://Meba:Myprovider2116!@mongopractice.qjekwdr.mongodb.net/?appName=MongoPractice" //process.env.ATLAS_URI 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -16,6 +22,7 @@ const db = mongoose.connection;
 // Event handling for MongoDB connection
 db.once('open', () => {
   console.log('MongoDB connection successful');
+  
   // Start Express server after successful MongoDB connection
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
@@ -25,6 +32,7 @@ db.once('open', () => {
 db.on('error', (err) => {
   console.error('MongoDB connection error:', err);
 });
+
 // Async function to connect to additional database configurations (if any)
 async function setupDb() {
   try {
@@ -34,9 +42,15 @@ async function setupDb() {
     console.error('Error setting up additional database configurations:', err);
   }
 }
+
 // Call setupDb function to perform additional database configurations
 setupDb();
 
+
+// routes
+
+
+app.use('/users', usersRoute)
 
 app.use('/', (req, res) => {
     res.send("Welcome to Movie Tracker")
