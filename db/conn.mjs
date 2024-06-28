@@ -11,32 +11,18 @@ const client = new MongoClient(uri);
 // const client = new MongoClient(process.env.ATLAS_URI)
 let db;
 
-// export async function connectDb() {
-//   try {
-//     // Connect the client to the server	
-//     await client.connect();
-//     // Send message successful connection
-//    db = await client.db("movie_tracker");
-//     console.log("connected to MongoDB");
-//     return db
-//   } catch(err){
-//     console.log(err)
-//   }
-// }
-// export function getDb() {
-//   return db
-// } 
-
-
-// export default connectDb;
-
-
-
 export const connectDb = async () => {
-  await client.connect();
-  db = client.db(); // you might specify the database name here
-  console.log('Connected to MongoDB');
-  return db;
+  try{
+    await client.connect();
+    db = client.db('movie_tracker'); 
+    console.log('Connected to MongoDB');
+    return db;
+  } catch (err){
+    console.error('MongoDB connection failed', err)
+    // console.log(err)
+    throw err
+  }
+  
 };
 
 export const getDb = () => {
@@ -48,53 +34,5 @@ export const getDb = () => {
 
 
 
-
-
-// import { MongoClient } from 'mongodb';
-// const connectionString = process.env.ATLAS_URI || '';
-// const client = new MongoClient(connectionString, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-// let db;
-// async function connectDb() {
-//   try {
-//     await client.connect();
-//     console.log('Connected to MongoDB Atlas');
-//     db = client.db('movie_collection'); // Replace with your database name
-//     return db;
-//   } catch (err) {
-//     console.error('Failed to connect to MongoDB Atlas', err);
-//     throw err;
-//   }
-// }
-// export default connectDb;
-
-
-
-
-
-
-// // // const mongoose = require('mongoose')
-// // import mongoose from 'mongoose';
-// // import dotenv from "dotenv";
-// // dotenv.config();
-
-// // const client = process.env.ATLAS_URI
-
-// // const connectDB = async () => {
-// //     try{
-// //         await mongoose.connect(client, {
-// //             useNewUrlParser: true,
-// //             useUnifiedTopology: true,
-// //         })
-// //         console.log(`MongoDb connected on port ${process.env.PORT}`)
-// //     } catch (err) {
-// //         console.log(err)
-// //     }
-
-// // }
-
-// // module.exports = connectDB
 
 

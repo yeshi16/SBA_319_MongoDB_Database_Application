@@ -1,8 +1,6 @@
 import express from 'express'
-import user from '../models/user.mjs'
 import {connectDb, getDb} from '../db/conn.mjs';
 
-connectDb()
 
 
 const router = express.Router()
@@ -19,6 +17,18 @@ router.get('/', async (req, res) => {
         console.log(err)
     }
 })
+
+// create new user`
+router.post('/', async (req, res) => {
+    try {
+        const db = getDb();
+        const { name, email } = req.body;
+        const newUser = await db.collection('users').insertOne({ name, email });
+        res.json(newUser);
+    } catch (error) {
+        console.error('error adding user:', error);
+    }
+});
 
 
 export default router
