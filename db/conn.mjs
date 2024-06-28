@@ -1,36 +1,50 @@
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
-import { MongoClient, ServerApiVersion } from 'mongodb'
-const uri = "mongodb+srv://Meba:Myprovider2116!@mongopractice.qjekwdr.mongodb.net/?appName=MongoPractice";
+import { MongoClient } from 'mongodb'
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+const uri = "mongodb+srv://Meba:Myprovider2116!@mongopractice.qjekwdr.mongodb.net/movie_tracker?appName=MongoPractice";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
+const client = new MongoClient(uri); 
+// const client = new MongoClient(process.env.ATLAS_URI)
+let db;
+
+// export async function connectDb() {
+//   try {
+//     // Connect the client to the server	
+//     await client.connect();
+//     // Send message successful connection
+//    db = await client.db("movie_tracker");
+//     console.log("connected to MongoDB");
+//     return db
+//   } catch(err){
+//     console.log(err)
+//   }
+// }
+// export function getDb() {
+//   return db
+// } 
+
+
+// export default connectDb;
+
+
+
+export const connectDb = async () => {
+  await client.connect();
+  db = client.db(); // you might specify the database name here
+  console.log('Connected to MongoDB');
+  return db;
+};
+
+export const getDb = () => {
+  if (!db) {
+      throw new Error('Database not initialized');
   }
-});
-
-async function connectDb() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-connectDb().catch(console.dir);
-
-export default connectDb;
-
-
-
-
+  return db;
+};
 
 
 
