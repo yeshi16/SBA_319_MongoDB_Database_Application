@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import {connectDb} from './db/conn.mjs';
 import usersRoute from './routes/users.mjs'
 import movieRoute from './routes/movies.mjs'
+import celebRoute from './routes/celeb.mjs'
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/users', usersRoute)
 app.use('/movies', movieRoute)
+app.use('/celeb', celebRoute)
 
 app.use('/', (req, res) => {
     res.send("Welcome to Movie Tracker")

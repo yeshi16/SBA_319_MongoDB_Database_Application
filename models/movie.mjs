@@ -22,4 +22,6 @@ import mongoose from "mongoose";
 
  })
 
+ MovieSchema.index({user: 1})
+
  export default mongoose.model('Movie', MovieSchema)
