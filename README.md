@@ -19,6 +19,9 @@ in your shell install
     "mongodb",
     "mongoose",
     "nodemon"
+    
+### Step 3: run the application
+in the termninal run nodemon app.mjs
 
 ## Project Structure
 

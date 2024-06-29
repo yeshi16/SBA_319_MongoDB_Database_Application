@@ -30,5 +30,26 @@ router.post('/', async (req, res) => {
     }
 });
 
+// update user
+router.patch('/:id', async (req, res) => {
+    const db = getDb();
+    const user = await db.collection('users').findOne() 
+    user.name = req.body.name || user.name
+    user.email = req.body.email || note.email
+    res.json(user);
+})
+
+// delete a note
+router.delete('/:id', async (req, res) => {
+   
+    const id = req.params.id
+    
+    const db = getDb();
+    const user = await db.collection('users').findOne() 
+    await db.collection('users').deleteOne(user) 
+    res.json({message: `${user.params.id} is deleted for the database`})
+    
+})
+
 
 export default router
