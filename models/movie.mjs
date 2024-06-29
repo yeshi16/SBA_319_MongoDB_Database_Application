@@ -6,7 +6,7 @@ import mongoose from "mongoose";
         required: true
     },
     poster: {
-        type: Image
+        type: String
     },
     discription: {
         type: String
