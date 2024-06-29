@@ -1,5 +1,6 @@
 import express from 'express'
-import { getDb } from './db.mjs';
+import { getDb } from '../db/conn.mjs';
+
 
 const router = express.Router()
 
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
 
         const db = getDb()
 
-         const celeb = await db.collection('celebrity').findOne({name})
+         const celeb = await db.collection('celebrity').find().toArray() 
 
          if(!celeb){
             const newCeleb = await db.collection('celebrity').insertOne({name, job, movies})

@@ -37,5 +37,5 @@ app.mjs to set up the Express application, connect to the database, and serve st
 Public 
 Defines the HTML files for the user interface in the public directory.
 
-Congig
+DB
 Defines the conn.mjs file that handles the conncection set up for MongoDb

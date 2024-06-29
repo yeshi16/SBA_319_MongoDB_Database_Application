@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
         const db = getDb();
         const { name, email } = req.body;
         const newUser = await db.collection('users').insertOne({ name, email });
-        res.json(newUser);
+        res.json({message: `new user added`});
     } catch (error) {
         console.error('error adding user:', error);
     }
@@ -46,8 +46,13 @@ router.delete('/:id', async (req, res) => {
     
     const db = getDb();
     const user = await db.collection('users').findOne() 
-    await db.collection('users').deleteOne(user) 
-    res.json({message: `${user.params.id} is deleted for the database`})
+    if(!user){
+        res.json({message: "user is not in the database"})
+    }else {
+        await db.collection('users').deleteOne(user) 
+    res.json({message: `${req.params.id} is deleted for the database`})
+    }
+    
     
 })
 

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const CelebritySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -10,7 +11,7 @@ const CelebritySchema = new mongoose.Schema({
         required: true
     },
     movies: {
-        type: [MovieSchema]
+        type: String
     }
 
 })
