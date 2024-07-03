@@ -39,7 +39,7 @@ router.patch('/:id', async (req, res) => {
     res.json(user);
 })
 
-// delete a note
+// delete a user
 router.delete('/:id', async (req, res) => {
    
     const id = req.params.id

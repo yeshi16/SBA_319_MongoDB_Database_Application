@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import Movie from '../models/movie.mjs'
 
 const CelebritySchema = new mongoose.Schema({
     name: {
@@ -11,7 +11,7 @@ const CelebritySchema = new mongoose.Schema({
         required: true
     },
     movies: {
-        type: String
+        type: [Movie]
     }
 
 })
